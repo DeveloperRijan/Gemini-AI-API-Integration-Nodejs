@@ -3,7 +3,7 @@ const express = require('express');
 const axios = require('axios');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 // Middleware to parse JSON requests
 app.use(express.json());
@@ -24,7 +24,7 @@ app.post('/ask-gemini', async (req, res) => {
             contents: [{ parts: [{ text: prompt }] }]
         });
 
-        
+
         console.log("usesMeta:: ", response?.data?.usageMetadata)
         console.log("API Response :: ", `${response.status} | ${response.data}`)
         if(response.data?.usageMetadata?.promptTokenCount == response.data?.usageMetadata?.totalTokenCount){
